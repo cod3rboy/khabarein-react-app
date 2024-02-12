@@ -1,13 +1,17 @@
 import { useState } from "react";
 import { BookmarkIcon as SaveIconOutlined } from "@heroicons/react/24/outline";
 import { BookmarkIcon as SaveIconSolid } from "@heroicons/react/24/solid";
-import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { ClockIcon } from "@heroicons/react/24/outline";
+import {
+  UserCircleIcon,
+  ClockIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from "@heroicons/react/24/outline";
 import moment from "moment";
 import timesago from "timesago";
 
 export default function Article({ article }) {
-  const [showContent, setShowContent] = useState(false);
+  const [contentVisible, setContentVisible] = useState(false);
   const createdAt = timesago(
     moment(
       article.date + ", " + article.time,
@@ -15,35 +19,33 @@ export default function Article({ article }) {
     ).toDate()
   );
   function handleClick() {
-    setShowContent((prevShowContent) => !prevShowContent);
+    setContentVisible((prevContentVisible) => !prevContentVisible);
   }
   return (
     <li className="mb-4 bg-white shadow rounded">
-      <div className="flex flex-col sm:flex-row sm:justify-between lg:flex-col">
-        <img
-          className="h-48 w-full sm:h-24 sm:w-24 object-cover rounded-t sm:rounded-none sm:p-1 lg:p-0 lg:w-full lg:h-56 lg:rounded-t"
-          src={article.imageUrl}
-          alt={article.title}
-        />
-        <div className="flex items-center justify-between">
-          <h3 className="p-2 font-news font-bold text-justify">
-            {article.title}
-          </h3>
-          <button
-            className="p-2 border-l border-slate-300"
-            title="Save for later"
-          >
-            {article.saved ? (
-              <SaveIconSolid className="w-6" />
-            ) : (
-              <SaveIconOutlined className="w-6" />
-            )}
-          </button>
-        </div>
+      <img
+        className="h-48 w-full object-cover rounded-t lg:h-56"
+        src={article.imageUrl}
+        alt={article.title}
+      />
+      <div className="flex items-center justify-between border-b border-slate-200">
+        <h3 className="p-2 font-news font-bold text-justify">
+          {article.title}
+        </h3>
+        <button
+          className="p-2 border-l border-slate-300"
+          title="Save for later"
+        >
+          {article.saved ? (
+            <SaveIconSolid className="w-6" />
+          ) : (
+            <SaveIconOutlined className="w-6" />
+          )}
+        </button>
       </div>
 
-      {showContent && (
-        <p className="p-2 font-news text-justify border-t border-slate-200">
+      {contentVisible && (
+        <p className="p-2 font-news text-justify">
           {article.content}
           <br />
           <a
@@ -56,8 +58,8 @@ export default function Article({ article }) {
         </p>
       )}
 
-      <div className="p-2 flex justify-between bg-slate-600 rounded-b">
-        <ul className="text-sm text-gray-300 flex flex-col gap-1">
+      <div className="p-2 flex justify-between items-center bg-slate-100 rounded-b text-slate-600">
+        <ul className="text-sm  flex flex-col gap-1">
           <li className="flex items-center gap-1">
             <UserCircleIcon className="w-5 h-5" />
             <span>{article.author}</span>
@@ -69,10 +71,14 @@ export default function Article({ article }) {
         </ul>
         <button
           type="button"
-          className="text-white bg-slate-600 hover:bg-slate-500 cursor-pointer p-2 rounded font-news"
+          className="hover:bg-slate-400 rounded-full w-11 h-11 p-3 border border-slate-200"
           onClick={handleClick}
         >
-          {showContent ? "Hide" : "View"} article
+          {contentVisible ? (
+            <ChevronUpIcon className="w-5 h-5" />
+          ) : (
+            <ChevronDownIcon className="w-5 h-5" />
+          )}
         </button>
       </div>
     </li>

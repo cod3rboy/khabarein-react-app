@@ -5,7 +5,7 @@ export default function ArticleHeader({
   coverImage,
   headline,
   isSaved,
-  onSaveClick,
+  onSaveToggle,
 }) {
   return (
     <>
@@ -19,7 +19,7 @@ export default function ArticleHeader({
         <button
           className="p-2 border-l border-slate-300"
           title={isSaved ? "Remove from saved" : "Save for later"}
-          onClick={onSaveClick}
+          onClick={onSaveToggle}
         >
           {isSaved ? (
             <SaveIconSolid className="w-6" />

@@ -15,12 +15,14 @@ const MenuTabs = [
     icon: BookmarkIcon,
   },
 ];
+const lastActiveTab = localStorage.getItem("activeTab") ?? MenuTabs[0].title;
 
 function App() {
-  const [activeTab, setActiveTab] = useState(MenuTabs[0].title);
+  const [activeTab, setActiveTab] = useState(lastActiveTab);
 
   function handleTabClick(tabName) {
     setActiveTab(tabName);
+    localStorage.setItem("activeTab", tabName);
   }
 
   return (

@@ -7,9 +7,9 @@ export default function Menu({ tabs, activeTab, onTabClick }) {
   }
 
   return (
-    <section className="sticky top-0 bg-slate-200 px-2 max-w-xl mx-auto mb-2">
+    <section className="sticky top-0 bg-slate-200 max-w-xl mx-auto mb-2">
       <Header />
-      <Tab.Container>
+      <Tab.Container className="px-2">
         {tabs.map(({ title, icon }) => (
           <Tab.Item
             key={title}
